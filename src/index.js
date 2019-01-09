@@ -64,7 +64,7 @@ function findAllPSiblings(where) {
 
 	for (var i = 0; i < elem.length; i++) {
 		if (elem[i].tagName == 'P') {
-			mass.push(elem[i].previousElementSibling.tagName);
+			mass.push(elem[i].previousElementSibling);
 		}
 	}
 
@@ -79,8 +79,18 @@ function findAllPSiblings(where) {
  * @param {Element} where - где искать
  * @return {Array<string>}
  */
+ // задача 5 ++++++++++++++++++++++++++++++
 function findError(where) {
+	var arr = [];
+	var temp = 0;
+	var elem = document.querySelector(where);
+	elem = elem.children;
 
+	for (var i = 0; i < elem.length; i++) {
+		temp = elem[i].textContent;
+		arr.push(temp);
+	}
+	return arr;
 }
 
 /**
@@ -96,7 +106,15 @@ function findError(where) {
  * после выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
  * должно быть преобразовано в <div></div><p></p>
  */
+// задача 6 ++++++++++++++++++++++++++++++
 function deleteTextNodes(where) {
+    var elements = where.childNodes;
+
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].nodeType == 3) {
+            where.removeChild(elements[i]);
+        }
+    }
 }
 
 /**
