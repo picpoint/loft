@@ -57,38 +57,13 @@ function prepend(what, where) {
  * т.к. следующим соседом этих элементов является элемент с тегом P
  */
 // задача 4 ++++++++++++++++++++++++++++++
-/*
-function findAllPSiblings(where) {
-	var mass = [];
-	var elem = document.querySelector(where);
-	elem = elem.children;
-
-	for (var i = 0; i < elem.length; i++) {
-		if (elem[i].tagName == 'P') {
-			mass.push(elem[i].previousElementSibling);
-		}
-	}
-
-	return mass;
-}
-*/
-
-/*
-1) where который приходит, это уже выбранный элемент DOM, тебе не нужно выбирать, т.е. пришел кусок DOM
-2) ты делаешь elem.children это правильно
-3) дальше в цикле ты прогоняешь через условие if, тут не правильная логика,
-тебе нужно проверить,- "если следующим соседом которым является элемент с тегом P..."
-а у тебя проверка на то что *данный* элемент является тегом P
-*/
 
 function findAllPSiblings(where) {
 	var arr = [];
 	where = where.children;
-	var tagP = document.querySelectorAll('P');
-	tagP = tagP[0];
 
-	for (var i = 0; i < where.length; i++) {
-		if (where[i].nextElementSibling == tagP) {
+	for (var i = 0; i < where.length - 1; i++) {
+		if (where[i].nextElementSibling.nodeName == 'P') {
 			arr.push(where[i]);
 		}
 	}
@@ -107,12 +82,10 @@ function findAllPSiblings(where) {
 function findError(where) {
 	var arr = [];
 	var temp = 0;
-	var elem = document.querySelector(where);
-	elem = elem.children;
+	where = where.children;
 
-	for (var i = 0; i < elem.length; i++) {
-		temp = elem[i].textContent;
-		arr.push(temp);
+	for (var i = 0; i < where.length; i++) {
+		arr.push(where[i].textContent);
 	}
 	return arr;
 }
@@ -151,7 +124,13 @@ function deleteTextNodes(where) {
  * после выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
  * должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
+// задача 7 ++++++++++++++++++++++++++++++
 function deleteTextNodesRecursive(where) {
+	where = where.children;
+	if (where.nodeType == 3) {
+		where.removeChild();
+	}
+	return deleteTextNodesRecursive(where);
 }
 
 /**
