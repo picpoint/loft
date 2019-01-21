@@ -57,7 +57,12 @@ function emulateClick(target) {
  */
 // задача 5 ++++++++++++++++++++++++++++++
 function delegate(target, fn) {
-
+    var tchild = target.children;
+    for (var i = 0; i < tchild.length; i++) {
+        if (tchild[i].tagName == 'BUTTON') {
+            tchild[i].addEventListener('click', fn);
+        }
+    }
 }
 
 /**
