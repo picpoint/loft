@@ -26,11 +26,23 @@ function delayPromise(seconds) {
  * @return {Promise<Array<{name: String}>>}
  */
 function loadAndSortTowns() {
-    return new Promise(function (resolve, reject) {
-      var req = new XMLHttpRequest();
-      req.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
-      req.send();
+	var prom = new Promise(function (resolve, reject) {
+
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+		xhr.send();
+
+		xhr.addEventListener('load', function () {
+			var parsJS = JSON.parse(xhr.responseText);
+			var arr = [];
+			for (var i = 0; i < parsJS.length; i++) {
+				arr.push(parsJS[i].name);
+			}
+			console.log(arr.sort());
+			resolve();
 		});
+	});
+
 }
 
 export {
