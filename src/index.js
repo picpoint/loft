@@ -28,8 +28,7 @@ function closeWindow(window) {
  * @param value - значение
  */
 function createCookie(name, value) {
-	var dt = new Date(1000);
-	document.cookie = 'name=value; expires=' + dt;
+	document.cookie = `${name}=${value}`;
 }
 
 /**
@@ -39,7 +38,7 @@ function createCookie(name, value) {
  */
 function deleteCookie(name) {
 	var dt = new Date(-1);
-	document.cookie = 'name=; expires=' + dt;
+	document.cookie = `${name}=; expires=` + dt;
 }
 
 export {
